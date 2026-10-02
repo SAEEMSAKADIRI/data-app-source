@@ -4,12 +4,12 @@ pipeline {
         DOCKER_IMAGE = 'your-dockerhub-username/data-processor'
         IMAGE_TAG = "v${env.BUILD_NUMBER}" 
     }
-    stages {
         stage('CI: Test') {
             steps {
                 echo "Running tests..."
                 sh 'pip3 install -r requirements.txt'
-                sh 'pytest tests/'
+                // Using python3 -m ensures it runs regardless of the system PATH
+                sh 'python3 -m pytest tests/'
             }
         }
         stage('CI: Build & Push') {
