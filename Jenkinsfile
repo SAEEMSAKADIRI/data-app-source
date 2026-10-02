@@ -1,6 +1,9 @@
 pipeline {
     agent any
     environment {
+        // Explicitly adding the path you just found
+        PATH = "/usr/local/bin:${env.PATH}"
+        
         DOCKER_IMAGE = 'your-dockerhub-username/data-processor'
         IMAGE_TAG = "v${env.BUILD_NUMBER}" 
     }
@@ -9,7 +12,6 @@ pipeline {
             steps {
                 echo "Running tests..."
                 sh 'pip3 install -r requirements.txt'
-                // Using python3 -m ensures it runs regardless of the system PATH
                 sh 'python3 -m pytest tests/'
             }
         }
@@ -17,8 +19,6 @@ pipeline {
             steps {
                 echo "Building Docker image..."
                 sh "docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} ."
-                // For the local demo, we are skipping the push to Docker Hub
-                // to keep it simple, but we will test that the build works.
             }
         }
         stage('CD: Deploy (The Traditional Way)') {
