@@ -4,6 +4,7 @@ pipeline {
         DOCKER_IMAGE = 'your-dockerhub-username/data-processor'
         IMAGE_TAG = "v${env.BUILD_NUMBER}" 
     }
+    stages {
         stage('CI: Test') {
             steps {
                 echo "Running tests..."
