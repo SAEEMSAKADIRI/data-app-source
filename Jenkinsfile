@@ -24,12 +24,6 @@ pipeline {
         stage('CD: Deploy (The Traditional Way)') {
             steps {
                 echo "Jenkins is deploying directly to the server..."
-                sh "docker run --rm ${DOCKER_IMAGE}:${IMAGE_TAG}"
-            }
-        }
-        stage('CD: Deploy (The Traditional Way)') {
-            steps {
-                echo "Jenkins is deploying directly to the server..."
                 // 1. Create the logs directory on your Mac if it doesn't exist
                 sh "mkdir -p /Users/saeems.akadiri/data-app-source/logs"
                 
